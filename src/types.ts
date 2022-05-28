@@ -1,8 +1,10 @@
+export type Inits = Record<string, string>;
 export type LanguageElement = {
     parse: FunctionResolvable<[Dir, Stack], 'attribs'>;
     reverse?: FunctionResolvable<[any], 'attribs'>;
     interpret: FunctionResolvable<[any, InterpreterState]>;
-    compile: FunctionResolvable<[any, LanguageElement['parse'], Record<string, string>], 'compile'>;
+    compile: FunctionResolvable<[any, LanguageElement['parse'], Inits], 'compile'>;
+    docs: [string, (string[] | string)];
     block?: boolean;
     loop?: boolean;
 };
@@ -20,7 +22,7 @@ export type InterpreterState = { scope: Scope[]; stack: Stack; };
 export type Attribs<T extends any[]> = [string, FunctionResolvable<T, 'attribs'>, true?][];
 export type CompileData = (
     string
-        | ((x: any, fns: Fns) => string)
+        | ((x: any, inits: Inits, fns: Fns) => string)
         | [string, string | ((x: any, fns: Fns) => string)]
 )[];
 export type FunctionResolvable<T extends any[], U extends 'attribs' | 'compile' | void = void> = 

@@ -8,7 +8,10 @@ const fns = <Fns>{
     stmts: (arr: any[], state: InterpreterState) => void arr.map((x, i) => {
         if (state.scope.some(x => x.stopped)) return;
         const stmt = statements[x[0]];
-        resolveFunction(stmt.interpret, fns)(x[1], { stack: [...state.stack, ['statement', x[0], i + 1]], scope: [...(stmt.block ? [{ variables: {}, container: x[0], index: i + 1 }] : []), ...state.scope] });
+        resolveFunction(stmt.interpret, fns)(x[1], {
+            stack: [...state.stack, ['statement', x[0], i + 1]],
+            scope: [...(stmt.block ? [{ variables: {}, container: x[0], index: i + 1 }] : []), ...state.scope],
+        });
     }),
 };
 

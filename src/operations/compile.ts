@@ -1,5 +1,5 @@
 import { expressions, statements } from '../core';
-import { Attribs, CompileData, Dir, Fns } from '../types';
+import { Attribs, CompileData, Dir, Fns, FunctionResolvable, Inits } from '../types';
 import { resolveFunction } from '../util';
 
 const fns = <Fns>{
@@ -9,7 +9,7 @@ const fns = <Fns>{
         .map(y => typeof y === 'string'
             ? y
             : typeof y === 'function'
-                ? y(resolveFunction(parse, fns, 'compile', false)(x, parse, inits), fns)
+                ? y(resolveFunction(parse, fns, 'compile', false)(x, null, fns), inits, fns)
                 : (typeof y[1] === 'string'
                     ? (x: string[]) => x.join(<string>y[1])
                     : typeof y[1] === 'function'
@@ -18,9 +18,14 @@ const fns = <Fns>{
                 )(
                     y[0] in x
                         ? Array.isArray(parse) && parse[0] !== 'map'
-                            ? (found => found && resolveFunction(found, fns, 'compile', false)(x[y[0]]))((<Attribs<[Dir]>>parse).find(x => x[0] === y[0])?.[1])
+                            ? (found => found && resolveFunction<[Dir, null, Inits]>(
+                                <FunctionResolvable<[Dir, null, Inits], void>><unknown>found,
+                                fns,
+                                undefined,
+                                false,
+                            )(x[y[0]], null, inits))((<Attribs<[Dir]>>parse).find(x => x[0] === y[0])?.[1])
                             : resolveFunction(parse, fns, 'compile', false)(x[y[0]])
-                        : '',
+                        : [],
                     fns,
                 ),
         )

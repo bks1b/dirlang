@@ -13,28 +13,16 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "import"
-    ],
+    "plugins": ["@typescript-eslint", "import"],
     "rules": {
         "indent": [
             "error",
             4,
             { "ignoredNodes": ["TemplateLiteral > *"] }
         ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
+        "linebreak-style": ["error", "windows"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
         "no-empty": [
             "error",
             { "allowEmptyCatch": true }
@@ -52,9 +40,7 @@
     },
     "settings": {
         "import/resolver": {
-          "node": {
-            "extensions": [".ts"]
-          }
+            "node": { "extensions": [".ts"] }
         }
     }
 }

@@ -2,15 +2,17 @@
   "name": "dirlang",
   "version": "1.0.0",
   "scripts": {
-    "test": "tsc && node dist/example/test",
-    "lint": "eslint src example --fix"
+    "test": "tsc && node dist/test",
+    "readme": "tsc && node dist/readme",
+    "lint": "eslint src readme --fix"
   },
   "author": "bks1b",
-  "description": "An interpreted & compiled programming language based on the file system.",
+  "description": "An interpreted & compiled esoteric programming language based on directories.",
   "devDependencies": {
     "@types/node": "^16.11.0",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
+    "canvas": "^2.9.1",
     "eslint": "^8.1.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.2",

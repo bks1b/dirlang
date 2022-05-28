@@ -5,10 +5,11 @@ import parse from './operations/parse';
 import interpret from './operations/interpret';
 import compile from './operations/compile';
 import reverse from './operations/reverse';
+import { sortDir } from './util';
 
-const readDir = (path: string): Dir => readdirSync(path)
+const readDir = (path: string): Dir => sortDir(readdirSync(path)
     .filter(x => statSync(join(path, x)).isDirectory())
-    .map(x => [decodeURIComponent(x), readDir(join(path, x))]);
+    .map(x => [decodeURIComponent(x), readDir(join(path, x))]));
 
 export { readDir, parse, interpret, compile, reverse };
 export const parseDir = (path: string) => parse(readDir(path));

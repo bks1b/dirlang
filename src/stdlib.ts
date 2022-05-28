@@ -117,7 +117,7 @@ export const operators = <Record<string, {
     },
 };
 
-const dateFn = (ts: number) => {
+const dateFn = (ts = Date.now()) => {
     const date = new Date(ts);
     return {
         ts: date.getTime(),

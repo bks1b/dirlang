@@ -1,7 +1,7 @@
 import { statements, expressions } from '../core';
 import { parseError } from '../errors';
 import { Attribs, Dir, Fns } from '../types';
-import { resolveFunction } from '../util';
+import { resolveFunction, sortDir } from '../util';
 
 const fns = <Fns>{
     expr: (dir: Dir, path) => {
@@ -9,13 +9,11 @@ const fns = <Fns>{
         if (!expr) throw parseError('UNKNOWN_EXPR', path, dir[0][0]);
         return [dir[0][0], resolveFunction(expr.parse, fns, 'attribs')(dir[0][1], [...path, ['expression', dir[0][0]]])];
     },
-    stmts: (arr: Dir, path) => arr
-        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-        .map((x, i) => {
-            const stmt = statements[x[1][0][0]];
-            if (!stmt) throw parseError('UNKNOWN_STMT', path, x[1][0][0]);
-            return [x[1][0][0], resolveFunction(stmt.parse, fns, 'attribs')(x[1][0][1], [...path, ['statement', x[1][0][0], i + 1]])];
-        }),
+    stmts: (arr: Dir, path) => sortDir(arr).map((x, i) => {
+        const stmt = statements[x[1][0][0]];
+        if (!stmt) throw parseError('UNKNOWN_STMT', path, x[1][0][0]);
+        return [x[1][0][0], resolveFunction(stmt.parse, fns, 'attribs')(x[1][0][1], [...path, ['statement', x[1][0][0], i + 1]])];
+    }),
     array: (dir: Dir, path, attrs: Attribs<any>) => Object.fromEntries(<[string, any]>attrs
         .map(x => {
             const found = dir.find(y => y[0] === x[0]);

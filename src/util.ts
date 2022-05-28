@@ -1,4 +1,4 @@
-import { Fns, FunctionResolvable } from './types';
+import { Fns, FunctionResolvable, Dir } from './types';
 
 export const minifyFn = (fn: (...x: any[]) => any) => {
     let str = fn.toString().replace(/\s{2,}/, '');
@@ -15,3 +15,5 @@ export const resolveFunction = <T extends any[], U extends 'attribs' | 'compile'
                 ? fns.map ? (...y) => fns.map!(x, ...y) : (y, ...args) => y.map((y: any) => resolveFunction(<any>x[2], fns)(indices ? [...x[3] ? [1] : [], ...<any[]>x[1]].reduce((a, b) => a[b], y) : y, ...args))
                 : (...y) => fns.array(...y, x)
             : fns.default || (x => x);
+
+export const sortDir = (dir: Dir) => dir.sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
