@@ -5,6 +5,6 @@ Dirlang is an esoteric programming language based on directories. This repositor
 Other than directory names, Dirlang's syntax is completely different from text-based languages'. Directories are expected to be structured similarly to parse trees, recursively.
 
 # Example
-<a href="https://github.com/bks1b/dirlang/tree/main/test"><img src="readme/example.png"></a>
+<a href="https://github.com/bks1b/dirlang/tree/main/test"><img src="https://raw.githubusercontent.com/bks1b/dirlang/main/readme/example.png"></a>
 
 # Docs
